@@ -2,7 +2,7 @@ desc "Install dotjs"
 task :install => 'install:all'
 
 namespace :install do
-  task :all => [ :prompt, :chrome, :daemon, :done ]
+  task :all => [ :prompt, :jquery, :chrome, :daemon, :done ]
 
   task :prompt do
     puts "\e[1m\e[32mdotjs\e[0m"
@@ -22,6 +22,15 @@ namespace :install do
     end
 
     exit 1 if answer =~ /n/
+  end
+
+  task :jquery do
+
+    #download jquery if possible
+    if File.executable? '/usr/bin/wget'
+      puts 'Downloading latest jQuery'
+      sh "wget http://code.jquery.com/jquery-1.6.2.min.js -O #{File.join(Dir.pwd,'ext','jquery.js')}" 
+    end
   end
 
   task :done do
